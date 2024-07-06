@@ -218,6 +218,21 @@ with open("decoded.txt") as f:
     f.close()
 ```
 
+```python
+#!/usr/bin/env python3
+# Open decoded.txt file in read mode
+with open("decoded.txt", "r") as f:
+    s = f.read().replace('\n', '')
+    
+    # Find the content between START_OF_FILE and END_OF_FILE
+    start = s.index("START_OF_FILE") + len("START_OF_FILE")
+    end = s.index("END_OF_FILE", start)
+    
+    # Open secret.docx.gpg file in write mode
+    with open('secret.docx.gpg', 'w') as secret:
+        secret.write(s[start:end])
+```
+
 
 secret.docx.gpg
 ```bash
