@@ -241,6 +241,7 @@ secret.docx.gpg: PGP RSA encrypted session key - keyid: 1B142B4C 6AA230BF RSA (E
 ```
 
 Save the 'PGP PUBLIC KEY' and 'PGP PRIVATE KEY' stored in decoded.txt as public.key and private.key, respectively.
+
 Finally :
 ```bash
 $ gpg --import pub.key
