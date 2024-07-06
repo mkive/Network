@@ -43,7 +43,7 @@ class RemoteShell: # A little RemoteShell to execute commands and extract the se
 Here is our PCAP :
 ```bash
 $ file dump.pcap 
-dump.pcap: tcpdump capture file (little-endian) - version 2.4 (Ethernet, capture length 262144)
+dump.pcap: pcap capture file, microsecond ts (little-endian) - version 2.4 (Ethernet, capture length 262144)
 ```
 
 Protocol hierarchy :
@@ -85,7 +85,7 @@ First look, we have a lot of duplicate data. Then, I tried to figure out how exa
 After several (hundreds...) test part by part and the domain name 'eat-sleep-pwn-repeat.de' removed, I was able to decode manually some some data with BASE32 :
 
 Original query : `G4JUSBIXCV2G65DBNQQDKNSLBIZDMMRUGE4DIIDEOJ3XQ4RNPBZC26BAGMQGM4.DFORZHSIDGOBSXI4TZEA2C4MCLEBCGKYZAGE3SAMJTHIZTCIBOBIZDMMRRGQ2D.CIDEOJ3XQ4RNPBZC26BAGUQHE33POQQCAIDSN5XXIIBAEA2C4MCLEBCGKYZAGE.3SAMJTHIYDMIBOFYFDENRT.eat-sleep-pwn-repeat.de`
-```python
+```python 2.x
 >>> import base64
 >>> print(base64.b32decode('G4JUSBIXCV2G65DBNQQDKNSLBIZDMMRUGE4DIIDEOJ3XQ4RNPBZC26BAGMQGM4DFORZHSIDGOBSXI4TZEA2C4MCLEBCGKYZAGE3SAMJTHIZTCIBOBIZDMMRRGQ2DCIDEOJ3XQ4RNPBZC26BAGUQHE33POQQCAIDSN5XXIIBAEA2C4MCLEBCGKYZAGE3SAMJTHIYDMIBOFYFDENRT'))
 7Itotal 56K
@@ -93,6 +93,26 @@ Original query : `G4JUSBIXCV2G65DBNQQDKNSLBIZDMMRUGE4DIIDEOJ3XQ4RNPBZC26BAGMQGM4
 2621441 drwxr-xr-x 5 root   root   4.0K Dec 17 13:06 ..
 263
 ```
+
+```python 3.x
+import base64
+
+encoded_string = 'G4JWIGURCV2G65DBNQQDIMCLBIZDMMRUGE4DIIDEOJ3XQ4RNPBZC26BAGMQGM4.DFORZHSIDGOBSXI4TZEA2C4MCLEBCGKYZAGE3SAMJTHIZTEIBOBIZDMMRRGQ2D.CIDEOJ3XQ4RNPBZC26BAGUQHE33POQQCAIDSN5XXIIBAEA2C4MCLEBCGKYZAGE.3SAMJTHIYDMIBOFYFDENRT'
+
+# Remove dots (.)
+encoded_string = encoded_string.replace('.', '')
+
+# Add necessary padding
+padding = '=' * ((8 - len(encoded_string) % 8) % 8)
+padded_encoded_string = encoded_string + padding
+
+# Decode
+decoded_bytes = base64.b32decode(padded_encoded_string)
+
+print(decoded_bytes)
+
+```
+
 
 We can see that from the server code, each query begins with 6 bytes which contain the the acknowledgement, conversation ID and sequence number. I simply removed it to decode all communication.
 
