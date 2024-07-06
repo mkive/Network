@@ -152,6 +152,33 @@ decoded.close()
 f.close()
 ```
 
+```python
+#!/usr/bin/env python3
+import base64
+
+# File ReadMode
+with open("extracted.txt", "r") as f:
+    pcap_decoded = ""
+    
+    for line in f:
+        s = ""
+        l = line.split('.', line.count('.'))
+        
+        # 점(.)을 기준으로 나누어진 각 부분을 이어 붙임
+        for i in range(line.count('.') - 1):
+            s += str(l[i])
+        
+        # Base32 Decoding
+        try:
+            pcap_decoded += base64.b32decode(s)[6:].decode('utf-8', errors='ignore')
+        except Exception as e:
+            pass
+
+# Decoding Result File Write
+with open('decoded.txt', 'w') as decoded:
+    decoded.write(pcap_decoded)
+```
+
 Got it!
 [pcap_decoded.txt](https://github.com/zbetcheckin/33C3_CTF_2k16/blob/master/pcap_decoded.txt)
 
