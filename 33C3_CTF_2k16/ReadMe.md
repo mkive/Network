@@ -240,8 +240,15 @@ with open("decoded.txt", "r") as f:
 ```
 
 
+### New Testing
 
-===============================================================================
+```
+$ pip install dpkt
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: dpkt in /home/kali/.local/lib/python3.11/site-packages (1.9.8)
+```
+
+
 ```python
 #!/usr/bin/env python3
 import base64
