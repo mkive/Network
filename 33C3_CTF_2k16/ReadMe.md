@@ -180,7 +180,7 @@ with open('decoded.txt', 'w') as decoded:
 ```
 
 Got it!
-[[pcap_decoded.txt](https://github.com/mkive/33C3_CTF_2k16/decoded.txt)](https://github.com/mkive/Network/blob/main/33C3_CTF_2k16/extracted.txt)
+[[pcap_decoded.txt](https://github.com/mkive/33C3_CTF_2k16/decoded.txt)]
 
 Wait a minute, not done yet, it looks like we have our 'secret document' encrypted... with the file and the key :)
 ```bash
