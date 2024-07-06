@@ -242,6 +242,7 @@ with open("decoded.txt", "r") as f:
 
 ### New Testing
 
+
 ```
 $ pip install dpkt
 Defaulting to user installation because normal site-packages is not writeable
@@ -329,7 +330,8 @@ with open('dump.pcap', 'rb') as f:
 print("Data written to", output_file)
 ```
 
-
+Got it!
+[decode.txt](https://github.com/mkive/Network/blob/main/33C3_CTF_2k16/decode.txt)
 
 
 secret.docx.gpg
