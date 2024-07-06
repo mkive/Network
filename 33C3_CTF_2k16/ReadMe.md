@@ -240,6 +240,89 @@ with open("decoded.txt", "r") as f:
 ```
 
 
+```
+#!/usr/bin/env python3
+import base64
+import struct
+import dpkt
+
+# packet sequence numbers that we will keep track of
+sseq = -1
+dseq = -1
+
+def decode_b32(s):
+    s = s.upper()
+    if isinstance(s, str):
+        s = s.encode('utf-8')
+    for i in range(10):
+        try:
+            return base64.b32decode(s)
+        except base64.binascii.Error:
+            s += b'='
+    raise ValueError('Invalid base32')
+
+def parse(name):
+    if isinstance(name, str):
+        name = name.encode('utf-8')
+    # split payload data at periods, remove the top 
+    # level domain name, and decode the data
+    data = decode_b32(b''.join(name.split(b'.')[:-2]))
+    (conn_id, seq, ack) = struct.unpack('<HHH', data[:6])
+    return (seq, data[6:])
+
+def handle(val, port, output_file):
+    global sseq, dseq
+    (seq, data) = parse(val)
+    # remove empty packets
+    if len(data) == 0:
+        return
+    
+    # remove duplicates
+    if port == 53:
+        if sseq < seq:
+            sseq = seq
+        else:
+            return
+    else:
+        if dseq < seq:
+            dseq = seq
+        else:
+            return
+    
+    # Writing data to output file
+    with open(output_file, 'ab') as f:
+        f.write(data)
+
+# Output file name
+output_file = 'decode.txt'
+
+# main execution loop - go through all DNS packets, 
+# decode payloads and dump them to the screen
+with open('dump.pcap', 'rb') as f:
+    for ts, pkt in dpkt.pcap.Reader(f):
+        eth = dpkt.ethernet.Ethernet(pkt)
+        if eth.type == dpkt.ethernet.ETH_TYPE_IP:
+            ip = eth.data
+            if ip.p == dpkt.ip.IP_PROTO_UDP:
+                udp = ip.data
+                
+                dns = dpkt.dns.DNS(udp.data)
+                # extract commands from CNAME records and 
+                # output from queries
+                if udp.sport == 53: 
+                    for rr in dns.an:
+                        if rr.type == dpkt.dns.DNS_CNAME:
+                            handle(rr.cname, udp.sport, output_file)
+                else:
+                    if dns.opcode == dpkt.dns.DNS_QUERY:
+                        handle(dns.qd[0].name, udp.sport, output_file)
+
+print("Data written to", output_file)
+```
+
+
+
+
 secret.docx.gpg
 ```bash
 $ file secret.docx.gpg
