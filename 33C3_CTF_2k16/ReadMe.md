@@ -164,7 +164,7 @@ with open("extracted.txt", "r") as f:
         s = ""
         l = line.split('.', line.count('.'))
         
-        # 점(.)을 기준으로 나누어진 각 부분을 이어 붙임
+        # Concatenate each part separated by a dot (.)
         for i in range(line.count('.') - 1):
             s += str(l[i])
         
