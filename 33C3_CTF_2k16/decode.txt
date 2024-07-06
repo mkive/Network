@@ -1,0 +1,198 @@
+id
+uid=1001(fpetry) gid=1001(fpetry) groups=1001(fpetry)
+ls -alih
+total 36K
+2624184 drwxr-xr-x 2 fpetry fpetry 4.0K Dec 17 13:30 .
+2621441 drwxr-xr-x 5 root   root   4.0K Dec 17 13:06 ..
+2631209 -rw------- 1 fpetry fpetry   42 Dec 17 13:07 .bash_history
+2627663 -rw-r--r-- 1 fpetry fpetry  220 Dec 17 13:06 .bash_logout
+2631208 -rw-r--r-- 1 fpetry fpetry 3.7K Dec 17 13:06 .bashrc
+2631221 -rw------- 1 fpetry fpetry   33 Dec 17 13:24 .lesshst
+2627664 -rw-r--r-- 1 fpetry fpetry  675 Dec 17 13:06 .profile
+2631216 -rw-r--r-- 1 fpetry fpetry 4.0K Dec 17 13:17 secret.docx
+2631218 -rw------- 1 fpetry fpetry  908 Dec 17 13:21 .viminfo
+cat > key << EOF
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQENBFhNxEIBCACokqjLjvpwnm/lCdKTnT/vFqnohml2xZo/WiMAr4h3CdTal4yf
+CBbYeZYXI4S9RNVl3+5j2h2yCssQ5S4ydWV2oy550qqh7K41u78L4FcT4lwgdbhD
+gHyRdiHpqZ15JIdHQBm1Tc4ZQNKiRmzgDZqroa/YfkGi7l35BDGId9VjwttZg6y4
+4I4j0NwnSdkhx3je+YUhDRSXXw55jhLsCqEVUaBpl4T3y93QkbxSEupPOQZ2TBNJ
+Hv454UDToUU9SwgkhARivA7dMV43RR21hyUdFAuRcVXzEZCS1nsF7nE9sgVGZ6fs
+BXeU/oPF6o86TqgPkBKrwYk2XTA3pf1DgVyvABEBAAG0I29wZXJhdG9yIGZyb20g
+aGVsbCA8dGVhbUBraXRjdGYuZGU+iQFOBBMBCAA4FiEE0Rl3XS1+y7q+DPr51DzA
+YtDYFh8FAlhNxEICGwMFCwkIBwIGFQgJCgsCBBYCAwECHgECF4AACgkQ1DzAYtDY
+Fh/FoQgAj5df/QfWefsQrMkGEH38prNfPXRN8+G2gJbjYj2fliKvwqiOAiX7AtoQ
+txlwU45eVCRwSq41uLBOhNiNDKlo62Rlz5d7ZCRd0hoewPpH+gMVrsUBym3WNy6k
+kvHBelOWOTqDSEW/BWyhk+UTDnMb1M0LP/NpcDHbYvR/KQhaP2N1SRz9Ye05Xs/B
+DRT+lzFnXstgXsPrOOXV1J4924IfbwGRamx0N4aDzEUqkN80PfwTjaCWdrz0Cgym
+BYVZOpHKuoDS/IK6/jxo4Q5N+BlAkN+9a7VeofbSor4X5Whrcr1hkIfGZ2xFAGsq
+wTxTZsO5Kxg6O3Q2X4J4Wv5sntaJGbkBDQRYTcRCAQgA1NCwlE21HcHZDBMrP5ww
+0F3POpoNv9umqrEfZhijhZ6DemJI8x9bImQyQGpJmyzUrUNSD4Il6dLZ6izT8Qme
+QAZ4jVs76qjm2NnK4a8Y8FbvbVhy3FF38rom4jUkq2kEGRD9MCBZU4v8EFFxdUHB
+TO/+asPieFvOje8quYOGQvm8Pv2yESpW2qRqZSqtpW3ovtWCrwuhtqNE2MkaKfzR
+sWJ59ZFGcj+8FnEEZpZ6ssCHC1cKy01w6yTUwiCz0uYhrBp694YI0Aj1L9haeB92
+RtA3YsoQ/5WOtA2cDB4+E402okCQAQbx6nQphYLkqQRsk+G9JWdqjfUVRw9sQnbo
+lQARAQABiQE2BBgBCAAgFiEE0Rl3XS1+y7q+DPr51DzAYtDYFh8FAlhNxEICGwwA
+CgkQ1DzAYtDYFh/5wwf/Rkx/aRIO8gdGh9grecQ3RT0zUh4nuJD+IOryBp+Unf9h
+8vuSDI1m1cFq3bBAiaZE3xq91dMG9jG3upMI4ZSzxtStD7k38BnFFausoAtO/2PN
+CqghyAdZUixFDFdJh0/F1tVwAi435dNRdGYQfgOgwx9z11nexDS8V+VKYj3cQFrg
+M5SIARGzI/G7vI53KLL6DeACUVG/ihjGfxZKaqgUKwlK8LUjzYQDH7foUyT3JcRY
+VSBmYq2jEFoMoV8BJHYFDd1/0T/Q7p5sTNfnPmkuHShoL9xoWs3F1uZ7qAu62S/z
+lv+fGfdzCZnubp254S3mLsyokuyZ7xjy/i0m2a5fVQ==
+=XS5g
+-----END PGP PUBLIC KEY BLOCK-----
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+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
+=+woj
+-----END PGP PRIVATE KEY BLOCK-----
+EOF
+gpg --import key
+gpg: directory `/home/fpetry/.gnupg' created
+gpg: new configuration file `/home/fpetry/.gnupg/gpg.conf' created
+gpg: WARNING: options in `/home/fpetry/.gnupg/gpg.conf' are not yet active during this run
+gpg: keyring `/home/fpetry/.gnupg/secring.gpg' created
+gpg: keyring `/home/fpetry/.gnupg/pubring.gpg' created
+gpg: /home/fpetry/.gnupg/trustdb.gpg: trustdb created
+gpg: key D0D8161F: public key "operator from hell <team@kitctf.de>" imported
+gpg: key D0D8161F: secret key imported
+gpg: key D0D8161F: "operator from hell <team@kitctf.de>" not changed
+gpg: Total number processed: 2
+gpg:               imported: 1  (RSA: 1)
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+ls
+key
+secret.docx
+gpg --encrypt --recipient team@kitctf.de --trust-model always secret.docx
+ls -alih
+total 56K
+2624184 drwxr-xr-x 3 fpetry fpetry 4.0K Dec 17 13:31 .
+2621441 drwxr-xr-x 5 root   root   4.0K Dec 17 13:06 ..
+2631209 -rw------- 1 fpetry fpetry   42 Dec 17 13:07 .bash_history
+2627663 -rw-r--r-- 1 fpetry fpetry  220 Dec 17 13:06 .bash_logout
+2631208 -rw-r--r-- 1 fpetry fpetry 3.7K Dec 17 13:06 .bashrc
+2631219 drwx------ 2 fpetry fpetry 4.0K Dec 17 13:31 .gnupg
+2631217 -rw-rw-r-- 1 fpetry fpetry 5.2K Dec 17 13:31 key
+2631221 -rw------- 1 fpetry fpetry   33 Dec 17 13:24 .lesshst
+2627664 -rw-r--r-- 1 fpetry fpetry  675 Dec 17 13:06 .profile
+2631216 -rw-r--r-- 1 fpetry fpetry 4.0K Dec 17 13:17 secret.docx
+2631222 -rw-rw-r-- 1 fpetry fpetry 4.4K Dec 17 13:31 secret.docx.gpg
+2631218 -rw------- 1 fpetry fpetry  908 Dec 17 13:21 .viminfo
+echo -n START_OF_FILE ; cat secret.docx.gpg; echo END_OF_FILE
+START_OF_FILE?L+?줷 ?慙퇳_&|e:矢麥!ZA亡싒?댂w掖N穆놗?륻賀?g?落,??x+3GΝf?뾂刃??f]?O봦멈ぉ윲 N??6?\85??z?)ln?:#[茉+╊Y??T.<Q케뛞褐?쐣z3#v" 꼨}?괿?쎘涑A앺初E뎏鴨拉}??헖? ?욌!?n?8P?븣2{쫾?q?珖崑A휤?q섴?넃盟h뺇QR?} ^z泥뮌a綢??倒碌{?>즕뚘?N??>?yH#畢??&빣??E쾏$?蛟.]a?硫F=?珤H?2?냷쀌디欠?+Ox{:+?ャ莢('?6?혚W<겔;?? ?샱퇧햙??쌑?配L??f배降l4???燃%퐿=_le쯦쀕$,q?뼎6ュ?l?.lⅤR!Z扮뱈
+녥`q4슽쳸?~l뤺ㅭ맜찋宴냋?;I??w톯k?〓?~*9??靑풎9濁d??T	王??쇫'?앜?\뿽???눨튕p}嵩?;l?덐쾮s2FB?(.d??최l^o/ĲaZ乎e뎑뽉熺#?+뜃?醉%}눛?Y2?~1?蹴ad?M?~*?퇓p뵙N
+?즮?d3?뷥處 ?5Q쭗?角陪?W?t볥8?슫??理짐u扮1뛆?T?+증섪鋌J??R?맳?uz=N혷W蹉欄?⅝?.?lB	?뜲q
+?????DEＣ떼M꺼꼶왹꾹뎸pMD5?癲?&?뜮쐪粱???쩴팚cf6??=i걿)?캝
+X뢍9kd?*U롣눢??轝p럋/?m\쓷	??r
+?P?h?蠢M?,:퐞
+?켎?馭令??멍됒겡껪훉휃-
+3?5?5?5???/Y疫??{??Oh螺?x1滸@?諏撰쪦M?A<-G?t놪?-쏦핪?r?做KV?S??PQ}A` 쭈i8?覡F￣?臂?V??Q?FXlⅢP땴5??뇆循?x\뤲`???㎋.討{Zß쟋r??뗔踪랸吟럣X픘.??x?u)||w첿鷺Z?]둧7옱ヴ0젓UaG脈??_갫???[줆폜|곲[偉T鐵됶줴뮞-B쫚?l?5?"`곸?듰킫 ~烙繃m뢺!?D?둦?쩟0?
+え?VH??@탈㈓딼?쾯<U?W%?뾱??;쮳?>uIz◁pxruL;rf?K(tAAd?릟섓샟윴?옅퀏1驀r?#홶?퓳?#?E쁦?Y껐?폨밗?玆?u멖N룇늬럷턂}DW펑@qR?9毖<炚?&?gめ3꺙l聯$f<М彫⒥붡3
+턹?빯뜶텠^|잝??r??輯?뱯?앭$o둆;쒾웍?藁윑R?t옹힢S????撑싙{멡8_??쌶?▨g쎶솯l殷?2?y?z?¿촵h@[?뀭r꿓?y??횐?맛W?jo=??紂Z톆즅閉F|z^本~3퉡늑&쁔%o 0,?퇌渭銓??8Q0,끜)쑍NR}yW웺잿律?붑殃%I?뤐??MO)?X8픒륌홥(技?푩?榻J?????(?뙬鷺7$銖???[懿+?
+?|믁뭋쑭 w}??SD?ZCc_뾿j?R(뜯コ띘몂텡?j??믯??8?눪???m:쭤?餃,未??踰Ze??繭0???gM?u?5캔대?萩?/닺p쪤즡cXD磯^1T?l??}?M˛윳禪?괡뉐/썱?&0'?쫍康F|DR6왿N뺷=I#{ㄼpk?3};??왖?]擥蘇X뷠렚CA뿋Ca쬈h\K{hW?멍웜놐}o궟A?
+뀙r?? 瓣\???프/@D?對X핱?T?r靭qP?閑;+?I맋7?%亞-윸귯쌴滑3쉖^???件-엷z?f壯?	潤j@;]授犧끹?즤찳?껍p?텴i漆??춑己?8]?悛??彭빐4晟?哀창厘p?共? ?럚C$4?y倉
+更탮?훥폢9큺?,?J?bea???X<??#?ニ'?$L?T? m????p8灸獺봫?L???g認,M?z??|???퍾y?;=덠
+gle-쏙FJ?VHh쉬퓯붟駱%蔿밌?~텠,늹@pWu쳣?嫂EH`?RfQq?m?z뚙휅' 턱줒?|????仔겏7??v??kz?\G餃줏)?琡?洛??濾郞玳V?~o퓵4-┽莘?>U玹H僉?%F1?|#픐t??Kl㎺휄^e첀c걌q`?꺙???,S얿?RyN$苡
+i?Jj?d	-쾋쇙Q|???8t)??T聆쌫헪?X婆?틻?긾@把=홞?M쩁fわ~?;,??쁴??o슫d?n?<???uk묭4s-3u<f깤k}T棚	?|꺾꼋V셭쫠+쯿2擬z쪂랇?&'0?F吻*し??
+?t~h??V???aon???
+ 盆n?-饌c셏|z^2g?碌읰j凶?逾Y??K
+L?딡꾂?Dm*cu<컲J?8??N븰|網 퇦!＊%燔塏멲cZ긒∧m⑿V봴튀重桓q漲뙰*콳v%q4?푁®.㎰Ek鉞+?훭a(뇡?誦H^첺쯯瘢???띠e吳 A ?mT?|t
+f????C?g?p>???룘밵?岫P>.????u뎁W(?架?<흿}?k菽JVZ)派??bw
+J}?X??킉L~?u?K?q?????z,뱳?R?6pＣH禍'T젺1곀荇|?씟入z???+G얂?셢?뤞5?닣?Y
+c꾯?L雷x;[V}o?9[8-??8s됂/?筵?;|晞뜜?E?탁?6#M뗗擴蒿%?큓,쪱m뫁?뭲%??{컙M꿠
+?m移썱'q놮??X???\럘[⊂贅 9ㆎ報?餓?쾘??킞촢썴mt唾 ?횣3地聳c-7?[}?*#?럑#첾롖:L菓Ⅰ勵5뗁拜왼둑?f<!팀t몉?
+G썑
+;?쪑1?'y'寡?쌃E팣큆볔}젔蒲f??ㄶY궛?#5곑祥u?갑?a磵/USa-W硅펧aG???0JeeXp??6첶?UqK	뮒5벣9?싗계??L??샯3?	??翰?딲7V껔몂?쪔9[`czJ	_???爭%흔? e??%?칿?뾕?f?3???棅h뎆꼌a\?타?쯠?蒸]OLm짥却쌹?혠鼓P)!?=g87?L뢫n?$R@5놷RJ븈 ;x
+D? 줬>윒믬슄a寧?U풤$m遼.2듰뀩쐱-%???L쥠/??wVid聿34hw??n:??C)Xmy섕?w뭶?죨$?K%*+FT&K젼蕨}s㎜??n???W?Χ2챡8V z]_Z9?誓F?쀩먛?첐vs漫??3?5L?駟?b삤m훷칝?懊}왔뾹黎<n~7 ?	쁬ø웜O田F3An?P宅?띶칼}?Z???k．?vCI(멡쩢cOF[M??'S람#'곜?て???椅??&펧?9뇾|&F푨+?뱨?쁽
+??쉶$?ь?Z녹i 딚?∞+?@)픚DSIc?뮽?'?T??b?#\??#폏5먡?奫P郞6niS?齡
+|WD?Z떝.L펑?棠큀@c
+?q췻쬨>O??菩측&]g?蜜tL	*쪱숼RY_뫭???茯??B㎉8냮#??[????룦P?y?.1b 彌R?"?쾫읗?#7B?#퀦즿煩?迷얢#沂]?P뻜=죍~~N퓦?K?=???P??
+??.=A6戌??.맇B뺕?縷?얼a딱\?걪Ð?N힟m??츭핗]l漑gl?{??륖?m?官A뫔Q??쪂?쮥봳?0?쒣?{포검
+?룴쇆[??裡m!?lMA^D簫S??7\b?	?Vj?:@?d늼솔"<0놾%Ybo륱픗&艀??.齧O1<?r싿?銷첚f?쉿0??END_OF_FILE
+[?1;2c[?1;2c[?1;2c[?
+/bin/bash: line 97: $'\E[?1': command not found
+/bin/bash: line 97: $'2c\E[?1': command not found
+/bin/bash: line 97: $'2c\E[?1': command not found
+/bin/bash: line 97: $'2c\E[?': command not found
+rm key
+rm secret.docx.gpg
+ls -alih
+total 40K
+2624184 drwxr-xr-x 3 fpetry fpetry 4.0K Dec 17 13:32 .
+2621441 drwxr-xr-x 5 root   root   4.0K Dec 17 13:06 ..
+2631209 -rw------- 1 fpetry fpetry   42 Dec 17 13:07 .bash_history
+2627663 -rw-r--r-- 1 fpetry fpetry  220 Dec 17 13:06 .bash_logout
+2631208 -rw-r--r-- 1 fpetry fpetry 3.7K Dec 17 13:06 .bashrc
+2631219 drwx------ 2 fpetry fpetry 4.0K Dec 17 13:31 .gnupg
+2631221 -rw------- 1 fpetry fpetry   33 Dec 17 13:24 .lesshst
+2627664 -rw-r--r-- 1 fpetry fpetry  675 Dec 17 13:06 .profile
+2631216 -rw-r--r-- 1 fpetry fpetry 4.0K Dec 17 13:17 secret.docx
+2631218 -rw------- 1 fpetry fpetry  908 Dec 17 13:21 .viminfo
+rm -rf .gnupg
+ls -alih
+total 36K
+2624184 drwxr-xr-x 2 fpetry fpetry 4.0K Dec 17 13:32 .
+2621441 drwxr-xr-x 5 root   root   4.0K Dec 17 13:06 ..
+2631209 -rw------- 1 fpetry fpetry   42 Dec 17 13:07 .bash_history
+2627663 -rw-r--r-- 1 fpetry fpetry  220 Dec 17 13:06 .bash_logout
+2631208 -rw-r--r-- 1 fpetry fpetry 3.7K Dec 17 13:06 .bashrc
+2631221 -rw------- 1 fpetry fpetry   33 Dec 17 13:24 .lesshst
+2627664 -rw-r--r-- 1 fpetry fpetry  675 Dec 17 13:06 .profile
+2631216 -rw-r--r-- 1 fpetry fpetry 4.0K Dec 17 13:17 secret.docx
+2631218 -rw------- 1 fpetry fpetry  908 Dec 17 13:21 .viminfo
+exit
