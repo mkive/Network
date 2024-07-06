@@ -243,7 +243,7 @@ with open("decoded.txt", "r") as f:
 ### New Testing
 
 
-```
+```bash
 $ pip install dpkt
 Defaulting to user installation because normal site-packages is not writeable
 Requirement already satisfied: dpkt in /home/kali/.local/lib/python3.11/site-packages (1.9.8)
@@ -340,13 +340,28 @@ $ file secret.docx.gpg
 secret.docx.gpg: PGP RSA encrypted session key - keyid: 1B142B4C 6AA230BF RSA (Encrypt or Sign) 2048b .
 ```
 
-Save the 'PGP PUBLIC KEY' and 'PGP PRIVATE KEY' stored in decoded.txt as public.key and private.key, respectively.
+The output is a treasure trove of information:
 
-Finally :
+- There is a public and private key. We save them to local file key.txt.
+- There are commands the user executed to encrypt a document
+- And there is the encrypted document itself, written to stdout. The document body is output between tags START_OF_FILE and END_OF_FILE. We use a binary editor (e.g. HxD) to extract its body to secret.docx.gpg.
+
+
+Now all that is left is to backtrack the user’s steps from the output log and decrypt the document:
+
 ```bash
-$ gpg --import pub.key
-$ gpg --import private.key
-$ gpg --decrypt secret.docx.gpg > secret.docx
+$ gpg --import key.txt                                     
+gpg: key D43CC062D0D8161F: "operator from hell <team@kitctf.de>" not changed
+gpg: key D43CC062D0D8161F: "operator from hell <team@kitctf.de>" not changed
+gpg: key D43CC062D0D8161F: secret key imported
+gpg: Total number processed: 2
+gpg:              unchanged: 2
+gpg:       secret keys read: 1
+gpg:  secret keys unchanged: 1
+
+$ gpg --decrypt --recipient team@kitctf.de --trust-model always secret.docx.gpg > secret.docx
+gpg: encrypted with 2048-bit RSA key, ID 4C2B141BBF30A26A, created 2016-12-11
+      "operator from hell <team@kitctf.de>"
 ```
 
 Here we go, we have a nice [secret.docx](https://github.com/zbetcheckin/33C3_CTF_2k16/blob/master/secret.docx) with the flag :
