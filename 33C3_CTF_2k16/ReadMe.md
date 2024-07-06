@@ -240,7 +240,9 @@ with open("decoded.txt", "r") as f:
 ```
 
 
-```
+
+===============================================================================
+```python
 #!/usr/bin/env python3
 import base64
 import struct
