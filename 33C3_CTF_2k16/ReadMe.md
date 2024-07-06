@@ -48,7 +48,7 @@ dump.pcap: pcap capture file, microsecond ts (little-endian) - version 2.4 (Ethe
 
 Protocol hierarchy :
 ```bash
-$ $ tshark -qr dump.pcap -z io,phs
+$ tshark -qr dump.pcap -z io,phs
 ===================================================================
 Protocol Hierarchy Statistics
 Filter: 
@@ -115,6 +115,12 @@ decoded_bytes = base64.b32decode(padded_encoded_string)
 print(decoded_bytes)
 
 ```
+
+```
+python decode.py 
+b'7\x13d\x1a\x91\x15total 40K\n2624184 drwxr-xr-x 3 fpetry fpetry 4.0K Dec 17 13:32 .\n2621441 drwxr-xr-x 5 root   root   4.0K Dec 17 13:06 ..\n263'
+```
+
 
 
 We can see that from the server code, each query begins with 6 bytes which contain the the acknowledgement, conversation ID and sequence number. I simply removed it to decode all communication.
