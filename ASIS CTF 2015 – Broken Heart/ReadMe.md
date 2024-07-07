@@ -11,6 +11,7 @@
 
 This writeup is based on these writeups:
 
+* <https://securitymax.tistory.com/84>
 * <http://www.thice.nl/asis-ctf-2015-write-ups/>
 * <https://xmgv.wordpress.com/2015/05/11/asis-ctf-quals-2015-broken-heart/>
 * <https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md>
