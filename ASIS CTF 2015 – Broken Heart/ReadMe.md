@@ -246,7 +246,25 @@ First we create a file of size `2347916` using `dd`:
 -rw-r--r-- 1 root root 2347916  7월  8 01:20 tcpstream
 ```
 
-Then, we write a small [python script](./reassembler.py) that reassembles the big file from the parts according to their content-ranges:
+Then, we write a small [python script] that reassembles the big file from the parts according to their content-ranges:
+
+```python
+#reassembler.py
+import re, sys
+if len(sys.argv) != 3: sys.exit(3)
+with open(sys.argv[1], 'r') as f:
+	stream = f.read()
+results = re.findall(r'Content-Range: bytes (\d+)-(\d+)/\d+', stream)
+if len(results) < 1: sys.exit(1)
+(begin, end) = results[0]
+begin = int(begin)
+end = int(end)
+print begin, end, len(stream), len(stream)-end+begin
+with open(sys.argv[2], 'r+b') as f:
+	f.seek(begin)
+	f.write(stream[len(stream)-end+begin-1:])
+	f.close()
+```
 
 ```bash
 $ for i in 087.107.124.013.00080-192.168.221.128.54*; do python2.7 reassembler.py "$i" tcpstream; done
