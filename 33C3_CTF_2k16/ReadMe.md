@@ -347,15 +347,15 @@ sseq = -1
 dseq = -1
 ```
 
-Imports:
+> Imports:
 * base64: For base32 decoding.
 * struct: For unpacking binary data.
 * dpkt: For parsing pcap files.
 
-Global Variables:
+> Global Variables:
 * sseq and dseq: These are used to keep track of the last seen sequence numbers for packets from different ports to avoid processing duplicates.
 
-Base32 Decoding Function
+### Base32 Decoding Function
 ```python
 def decode_b32(s):
     s = s.upper()
@@ -368,13 +368,13 @@ def decode_b32(s):
             s += b'='
     raise ValueError('Invalid base32')
 ```
-decode_b32:
+> decode_b32:
 * Converts the input string to uppercase.
 * Ensures the input is a byte string.
 * Tries to decode the base32 string up to 10 times, adding padding (=) if decoding fails.
 * Raises a ValueError if it cannot decode after 10 attempts.
 
-Parse Function
+### Parse Function
 ```python
 def parse(name):
     if isinstance(name, str):
@@ -386,14 +386,14 @@ def parse(name):
     return (seq, data[6:])
 ```
 
-parse:
+> parse:
 * Ensures the input name is a byte string.
 * Removes the top-level domain (TLD) and joins the remaining parts.
 * Decodes the result using decode_b32.
 * Unpacks the first 6 bytes of the decoded data into conn_id, seq, and ack.
 * Returns the sequence number (seq) and the remaining data.
 
-Handle Function
+### Handle Function
 ```python
 def handle(val, port, output_file):
     global sseq, dseq
@@ -417,13 +417,13 @@ def handle(val, port, output_file):
         f.write(data)
 ```
 
-handle:
+> handle:
 * Parses the input value to get the sequence number and data.
 * Filters out empty data packets.
 * Checks for duplicate packets using sequence numbers and updates sseq or dseq accordingly.
 * Writes valid data to the output file (decode.txt) in append-binary mode.
 
-Main Execution Loop
+### Main Execution Loop
 ```python
 output_file = 'decode.txt'
 
@@ -448,7 +448,7 @@ with open('dump.pcap', 'rb') as f:
 print("Data written to", output_file)
 ```
 
-Main Execution Loop:
+> Main Execution Loop:
 * Opens the pcap file (dump.pcap) in binary read mode.
 * Iterates over each packet in the pcap file using dpkt.pcap.Reader.
 * Checks if the packet is an IP packet.
