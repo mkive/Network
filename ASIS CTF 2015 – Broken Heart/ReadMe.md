@@ -31,7 +31,7 @@ myheart_7cb6daec0c45b566b9584f98642a7123: pcap-ng capture file - version 1.0
 Looking at the type of network protocols used in the transmission, we see a bunch of mostly TCP, DNS and HTTP Requests:
 
 ```bash
-$ tshark -r myheart_7cb6daec0c45b566b9584f98642a7123  | awk '{print $6}' | sort | uniq -c | sort -n
+$ tshark -r myheart_7cb6daec0c45b566b9584f98642a7123 | awk '{print $6}' | sort | uniq -c | sort -n
    1 BROWSER
    2 ARP
    7 DHCPv6
