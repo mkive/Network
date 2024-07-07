@@ -15,6 +15,7 @@ This writeup is based on these writeups:
 * <http://www.thice.nl/asis-ctf-2015-write-ups/>
 * <https://xmgv.wordpress.com/2015/05/11/asis-ctf-quals-2015-broken-heart/>
 * <https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md>
+* <https://github.com/ctfs/write-ups-2015/tree/master/asis-quals-ctf-2015/forensic/broken-heart>
 
 We are given a pcap-ng capture file:
 
@@ -43,7 +44,7 @@ Click on the packet and select [Right-click]-[Follow TCP Stream] to analyze the 
 
 * If you look at TCP Stream 0, the client requests the LoiRLUoq file from the server via GET and checks the server's response, the HTTP status code is 206 - Partial Content. 
 This code is used when only part of the requested file is sent. 
-* When requesting a file, the data is not sent all at once, but in bits and pieces (fragmented), and when carved, it will be the file you requested.
+* When you request a file, it doesn't send all the data at once, it sends it in bits and pieces (fragmentation), and when you carve it, it will be the file you requested.
 * A Content-Range entry is present in the header, which indicates the offset range of the requested file. 
 Since the fragmented files are requested randomly and not sequentially starting from the first part of the file, the files must be sorted sequentially by offset range before being combined.
 
@@ -117,13 +118,13 @@ From the `tshark` examination, it seems like the parts were transmitted from the
 We can extract these parts using `tcpflow`:
 
 ```bash
-#by Ubuntu
+# by Ubuntu
 sudo apt install tcpflow    
 sudo apt install tcpflow-nox
 ```
 
 ```bash
-# tcpflow -r myheart_7cb6daec0c45b566b9584f98642a7123.pcap
+$ tcpflow -r myheart_7cb6daec0c45b566b9584f98642a7123.pcap
 reportfilename: ./report.xml
 tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
 tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
@@ -148,7 +149,7 @@ tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
 tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
 tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
 tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
-# ls -1
+$ ls -1
 087.107.124.013.00080-192.168.221.128.54391
 087.107.124.013.00080-192.168.221.128.54392
 087.107.124.013.00080-192.168.221.128.54393
@@ -207,7 +208,7 @@ Content-Range는 각 HTTP Response 의 필드를보고 전송 된 파일의 크�
 We look at the `Content-Range` field of each HTTP Response to see how big the transmitted file is and which ranges have been submitted:
 
 ```bash
-# for i in 087.107.124.013.00080-192.168.221.128.54*; do strings -a "$i" | grep "Content-Range"; done | tr '/-' ' ' | sort -nk4
+$ for i in 087.107.124.013.00080-192.168.221.128.54*; do strings -a "$i" | grep "Content-Range"; done | tr '/-' ' ' | sort -nk4
 Content Range: bytes 13 179538 2347916
 Content Range: bytes 27943 132132 2347916
 Content Range: bytes 145550 198027 2347916
@@ -238,18 +239,18 @@ Looks like everything - except the first 13 bytes - is available.
 First we create a file of size `2347916` using `dd`:
 
 ```bash
-# dd if=/dev/zero of=tcpstream bs=2347916 count=1
+$ dd if=/dev/zero of=tcpstream bs=2347916 count=1
 1+0 records in
 1+0 records out
 2347916 bytes (2.3 MB, 2.2 MiB) copied, 0.00619454 s, 379 MB/s
-# ls -alF tcpstream
+$ ls -alF tcpstream
 -rw-r--r-- 1 root root 2347916  7월  8 01:20 tcpstream
 ```
 
 Then, we write a small [python script] that reassembles the big file from the parts according to their content-ranges:
 
 ```python
-#reassembler.py
+# reassembler.py
 import re, sys
 if len(sys.argv) != 3: sys.exit(3)
 with open(sys.argv[1], 'r') as f:
@@ -266,7 +267,10 @@ with open(sys.argv[2], 'r+b') as f:
 	f.close()
 ```
 
+
+
 ```bash
+# by Ubuntu
 $ for i in 087.107.124.013.00080-192.168.221.128.54*; do python2.7 reassembler.py "$i" tcpstream; done
 1080486 1345387 265284 382
 986065 1150874 165191 381
@@ -291,15 +295,17 @@ $ for i in 087.107.124.013.00080-192.168.221.128.54*; do python2.7 reassembler.p
 1904693 2059434 155124 382
 188923 359924 171382 380
 1672374 1872648 200657 382
-$ md5 tcpstream
+$ md5sum tcpstream
+#657c2f7517a0ef498b25c42e9872d010  tcpstream
 61f89707b9c9d2d2da88dfb9259dea56  tcpstream
+
 ```
 
 We open the stream using a hexeditor (e.g. `hexedit`) to see that the transmitted file most likely is a PNG, since it contains chunk names such as `[I]HDR`, `pHYs` and `IDAT`:
 
-![](./other-chunks.png)
+![image](https://github.com/mkive/Network/assets/4083018/e929947b-499d-49ab-b1fd-84c5c24d3fb6)
+![image](https://github.com/mkive/Network/assets/4083018/f0c056af-3274-4252-a054-cf1ff5624776)
 
-![](./idat-chunk.png)
 
 All that's left to do is to insert the missing first 13 bytes (also known as part of a `header`) of our PNG.
 
@@ -307,11 +313,43 @@ We can either look up any [PNG specification](http://www.w3.org/TR/PNG/#5DataRep
 
 ![](png-header.png)
 
+```bash
+$ hexedit tcpstream
+00000000   00 00 00 00  00 00 00 00  00 00 00 00  00 80 00 00  04 B0 08 06  00 00 00 1A  ........................
+00000018   30 57 F6 00  00 00 09 70  48 59 73 00  00 0B 13 00  00 0B 13 01  00 9A 9C 18  0W.....pHYs.............
+00000030   00 00 0A 4F  69 43 43 50  50 68 6F 74  6F 73 68 6F  70 20 49 43  43 20 70 72  ...OiCCPPhotoshop ICC pr
+00000048   6F 66 69 6C  65 00 00 78  DA 9D 53 67  54 53 E9 16  3D F7 DE F4  42 4B 88 80  ofile..x..SgTS..=...BK..
+00000060   94 4B 6F 52  15 08 20 52  42 8B 80 14  91 26 2A 21  09 10 4A 88  21 A1 D9 15  .KoR.. RB....&*!..J.!...
+00000078   51 C1 11 45  45 04 1B C8  A0 88 03 8E  8E 80 8C 15  51 2C 0C 8A  0A D8 07 E4  Q..EE...........Q,......
+00000090   21 A2 8E 83  A3 88 8A CA  FB E1 7B A3  6B D6 BC F7  E6 CD FE B5  D7 3E E7 AC  !.........{.k........>..
+000000A8   F3 9D B3 CF  07 C0 08 0C  96 48 33 51  35 80 0C A9  42 1E 11 E0  83 C7 C4 C6  .........H3Q5...B.......
+000000C0   E1 E4 2E 40  81 0A 24 70  00 10 08 B3  64 21 73 FD  23 01 00 F8  7E 3C 3C 2B  ...@..$p....d!s.#...~<<+
+000000D8   22 C0 07 BE  00 01 78 D3  0B 08 00 C0  4D 9B C0 30  1C 87 FF 0F  EA 42 99 5C  ".....x.....M..0.....B.\
+000000F0   01 80 84 01  C0 74 91 38  4B 08 80 14  00 40 7A 8E  42 A6 00 40  46 01 80 9D  .....t.8K....@z.B..@F...
+00000108   98 26 53 00  A0 04 00 60  CB 63 62 E3  00 50 2D 00  60 27 7F E6  D3 00 80 9D  .&S....`.cb..P-.`'......
+00000120   F8 99 7B 01  00 5B 94 21  15 01 A0 91  00 20 13 65  88 44 00 68  3B 00 AC CF  ..{..[.!..... .e.D.h;...
+00000138   56 8A 45 00  58 30 00 14  66 4B C4 39  00 D8 2D 00  30 49 57 66  48 00 B0 B7  V.E.X0..fK.9..-.0IWfH...
+00000150   00 C0 CE 10  0B B2 00 08  0C 00 30 51  88 85 29 00  04 7B 00 60  C8 23 23 78  ..........0Q..)..{.`.##x
+00000168   00 84 99 00  14 46 F2 57  3C F1 2B AE  10 E7 2A 00  00 78 99 B2  3C B9 24 39  .....F.W<.+...*..x..<.$9
+00000180   45 81 5B 08  2D 71 07 57  57 2E 1E 28  CE 49 17 2B  14 36 61 02  61 9A 40 2E  E.[.-q.WW..(.I.+.6a.a.@.
+00000198   C2 79 99 19  32 81 34 0F  E0 F3 CC 00  00 A0 91 15  11 E0 83 F3  FD 78 CE 0E  .y..2.4..............x..
+000001B0   AE CE CE 36  8E B6 0E 5F  2D EA BF 06  FF 22 62 62  E3 FE E5 CF  AB 70 40 00  ...6..._-...."bb.....p@.
+000001C8   00 E1 74 7E  D1 FE 2C 2F  B3 1A 80 3B  06 80 6D FE  A2 25 EE 04  68 5E 0B A0  ..t~..,/...;..m..%..h^..
+000001E0   75 F7 8B 66  B2 0F 40 B5  00 A0 E9 DA  57 F3 70 F8  7E 3C 3C 45  A1 90 B9 D9  u..f..@.....W.p.~<<E....
+000001F8   D9 E5 E4 E4  D8 4A C4 42  5B 61 CA 57  7D FE 67 C2  5F C0 57 FD  6C F9 7E 3C  .....J.B[a.W}.g._.W.l.~<
+00000210   FC F7 F5 E0  BE E2 24 81  32 5D 81 47  04 F8 E0 C2  CC F4 4C A5  1C CF 92 09  ......$.2].G......L.....
+---  tcpstream       --0x0/0x23D38C--0%--------------------------------------------------------------------------
+
+```
 After inserting these bytes, we get the following picture containing our flag:
 
-![](tcpstream.png)
+![image](https://github.com/mkive/Network/assets/4083018/d9ec38fa-7793-4550-b31f-16b7160d9f3d)
+![image](https://github.com/mkive/Network/assets/4083018/d0e52672-472f-497a-b62e-7dbba32fd1c7)
+
 
 Now, because we are super-cheeky, we can apply [OCR](https://en.wikipedia.org/wiki/Optical_character_recognition) to extract the flag automatically without writing it down by hand:
+
+![image](https://github.com/mkive/Network/assets/4083018/22789153-ec9e-4e89-a537-fe8937c7aaa5)
 
 ```bash
 $ tesseract tcpstream.png ./out
@@ -324,10 +362,3 @@ The flag is `ASIS{8bffe21e084db147b32aa850bc65eb16}`.
 
 PS: According to [this writeup](https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md) there exists a program called `dshell` that does the parts reassembling job for us - haven't tried it out yet though.
 
-## Other write-ups and resources
-
-* <http://lockboxx.blogspot.com/2015/05/asis-ctf-2015-quals-writeup-broken-heart.html>
-* <https://xmgv.wordpress.com/2015/05/11/asis-ctf-quals-2015-broken-heart/>
-* <https://github.com/naijim/blog/blob/master/writeups/asis-quals-ctf-2015_broken_heart_writeup.md>
-* <http://www.thice.nl/asis-ctf-2015-write-ups/>
-* [Indonesian](https://github.com/rentjongteam/write-ups-2015/tree/master/asis-quals-2015/broken-heart)
