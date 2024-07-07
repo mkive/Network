@@ -53,7 +53,7 @@ We extracted packet 283 as 1.bin, packet 288 as 2.bin, and so on until packet 31
 ![image](https://github.com/mkive/Network/assets/4083018/f58a166f-fba1-48a7-8306-1c3a439c7a55)
 [Remove the hex value [02 0C 20 FC 03 F8 03 47 00 63 EF E6 07]]
 
-
+If we consider the PNG's footer signature and extract up to packet 313, we extract a total of 7 packets.
 ![image](https://github.com/mkive/Network/assets/4083018/c7f1e4f6-9e9b-4703-b7fe-b1a611366c1a)
 [Remove hex value [0E]]
 
