@@ -40,7 +40,7 @@ SHA-1: 7e05370d87196157bc35f920d7fcf27668f8e8af
 SHA-1: e8c7d65370947b40418af55bdc0f65e06b7b0c59
 ```
 
-Searching for these hashsums we finally find a [malware analysis result](https://www.hybrid-analysis.com/sample/688a3ac91914609e387111e6382911ecd0aefe9f4f31bed85438b65af390cf6f?environmentId=2) that contains a screenshot with the flag:
+Searching for these hashsums we finally find a [malware analysis result](https://www.virustotal.com/gui/file/61dd8b60ac35e91771d9ed4f337cd63e0aa6d0a0c5a17bb28cac59b3c21c24a9) that contains a screenshot with the flag:
 
 ![](./screen_0.png)
 
