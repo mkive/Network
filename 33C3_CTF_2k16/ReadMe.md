@@ -240,7 +240,7 @@ with open("decoded.txt", "r") as f:
 ```
 
 
-# DNS Packet Decoder Script
+## DNS Packet Decoder Script
 
 This Python script processes DNS traffic from a pcap file (`dump.pcap`), decodes specific data from DNS packets, and writes the decoded data to an output file (`decode.txt`). The script is designed to filter out duplicates and empty packets, ensuring efficient and accurate data extraction.
 
@@ -353,10 +353,10 @@ Imports:
 * dpkt: For parsing pcap files.
 
 Global Variables:
-sseq and dseq: These are used to keep track of the last seen sequence numbers for packets from different ports to avoid processing duplicates.
+* sseq and dseq: These are used to keep track of the last seen sequence numbers for packets from different ports to avoid processing duplicates.
+
 Base32 Decoding Function
-python
-Copy code
+```python
 def decode_b32(s):
     s = s.upper()
     if isinstance(s, str):
@@ -367,14 +367,15 @@ def decode_b32(s):
         except base64.binascii.Error:
             s += b'='
     raise ValueError('Invalid base32')
+```
 decode_b32:
-Converts the input string to uppercase.
-Ensures the input is a byte string.
-Tries to decode the base32 string up to 10 times, adding padding (=) if decoding fails.
-Raises a ValueError if it cannot decode after 10 attempts.
+* Converts the input string to uppercase.
+* Ensures the input is a byte string.
+* Tries to decode the base32 string up to 10 times, adding padding (=) if decoding fails.
+* Raises a ValueError if it cannot decode after 10 attempts.
+
 Parse Function
-python
-Copy code
+```python
 def parse(name):
     if isinstance(name, str):
         name = name.encode('utf-8')
@@ -383,15 +384,17 @@ def parse(name):
     data = decode_b32(b''.join(name.split(b'.')[:-2]))
     (conn_id, seq, ack) = struct.unpack('<HHH', data[:6])
     return (seq, data[6:])
+```
+
 parse:
-Ensures the input name is a byte string.
-Removes the top-level domain (TLD) and joins the remaining parts.
-Decodes the result using decode_b32.
-Unpacks the first 6 bytes of the decoded data into conn_id, seq, and ack.
-Returns the sequence number (seq) and the remaining data.
+* Ensures the input name is a byte string.
+* Removes the top-level domain (TLD) and joins the remaining parts.
+* Decodes the result using decode_b32.
+* Unpacks the first 6 bytes of the decoded data into conn_id, seq, and ack.
+* Returns the sequence number (seq) and the remaining data.
+
 Handle Function
-python
-Copy code
+```python
 def handle(val, port, output_file):
     global sseq, dseq
     (seq, data) = parse(val)
@@ -412,14 +415,16 @@ def handle(val, port, output_file):
     # Writing data to output file
     with open(output_file, 'ab') as f:
         f.write(data)
+```
+
 handle:
-Parses the input value to get the sequence number and data.
-Filters out empty data packets.
-Checks for duplicate packets using sequence numbers and updates sseq or dseq accordingly.
-Writes valid data to the output file (decode.txt) in append-binary mode.
+* Parses the input value to get the sequence number and data.
+* Filters out empty data packets.
+* Checks for duplicate packets using sequence numbers and updates sseq or dseq accordingly.
+* Writes valid data to the output file (decode.txt) in append-binary mode.
+
 Main Execution Loop
-python
-Copy code
+```python
 output_file = 'decode.txt'
 
 with open('dump.pcap', 'rb') as f:
@@ -441,36 +446,33 @@ with open('dump.pcap', 'rb') as f:
                         handle(dns.qd[0].name, udp.sport, output_file)
 
 print("Data written to", output_file)
+```
+
 Main Execution Loop:
-Opens the pcap file (dump.pcap) in binary read mode.
-Iterates over each packet in the pcap file using dpkt.pcap.Reader.
-Checks if the packet is an IP packet.
-Further checks if it is a UDP packet.
-If the UDP packet is from port 53 (DNS response), it processes CNAME records.
-If it is a DNS query, it processes the query name.
-The handle function is called to decode and write valid data to decode.txt.
-Summary
+* Opens the pcap file (dump.pcap) in binary read mode.
+* Iterates over each packet in the pcap file using dpkt.pcap.Reader.
+* Checks if the packet is an IP packet.
+* Further checks if it is a UDP packet.
+* If the UDP packet is from port 53 (DNS response), it processes CNAME records.
+* If it is a DNS query, it processes the query name.
+* The handle function is called to decode and write valid data to decode.txt.
+
+### Summary
 The script processes DNS traffic from a pcap file, decodes specific data from DNS packets, and writes the decoded data to an output file while filtering out duplicates and empty packets. The decoding handles potential padding issues with base32 encoding, ensuring robustness in the parsing logic.
 
-Running the Script
-Ensure you have the dpkt library installed:
+### Running the Script
+1. Ensure you have the dpkt library installed:
 
-sh
-Copy code
+```sh
 pip install dpkt
-Run the script using Python 3:
+```
 
-sh
-Copy code
+2. Run the script using Python 3:
+```sh
 python3 script_name.py
+```
+
 Replace script_name.py with the actual name of your script file. Make sure you have the dump.pcap file in the same directory or provide the correct path to it. This should resolve the errors and allow the script to run correctly.
-
-
-
-
-
-
-
 
 
 
