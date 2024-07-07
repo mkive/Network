@@ -240,7 +240,9 @@ with open("decoded.txt", "r") as f:
 ```
 
 
-### New Testing
+# DNS Packet Decoder Script
+
+This Python script processes DNS traffic from a pcap file (`dump.pcap`), decodes specific data from DNS packets, and writes the decoded data to an output file (`decode.txt`). The script is designed to filter out duplicates and empty packets, ensuring efficient and accurate data extraction.
 
 
 ```bash
@@ -330,9 +332,6 @@ with open('dump.pcap', 'rb') as f:
 print("Data written to", output_file)
 ```
 
-# DNS Packet Decoder Script
-
-This Python script processes DNS traffic from a pcap file (`dump.pcap`), decodes specific data from DNS packets, and writes the decoded data to an output file (`decode.txt`). The script is designed to filter out duplicates and empty packets, ensuring efficient and accurate data extraction.
 
 ## Key Components
 
@@ -346,7 +345,7 @@ import dpkt
 # Packet sequence numbers that we will keep track of
 sseq = -1
 dseq = -1
-
+```
 
 Imports:
 * base64: For base32 decoding.
