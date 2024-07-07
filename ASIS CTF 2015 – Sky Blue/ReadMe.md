@@ -32,6 +32,7 @@ In Find Packets (Ctrl + F), search for png in packet bytes.
 If we look at the header of packet 283 as shown above, we can see that it starts with [02 0c 20].
 
 Similarly, if we analyze the data with the header of [02 0c 20] after packet 283 by searching for the hex value, we can see a total of 6 packets. Find additional packets (288, 293, 298, 303, 308, 308, 313).
+
 [02 0C 20 FC 03 F8 03 47 00 63 EF E6 07]
 
 ![image](https://github.com/mkive/Network/assets/4083018/6aaa7fb5-cede-43c4-b888-812563282cbb)
