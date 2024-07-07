@@ -203,6 +203,7 @@ report.xml
 Since we only need data transmitted from `87.107.124.13` to `192.168.221.128`, we only care about the files beginning with `087.107.124.013`.
 
 Content-Range는 각 HTTP Response 의 필드를보고 전송 된 파일의 크기와 전송 된 범위를 확인
+
 We look at the `Content-Range` field of each HTTP Response to see how big the transmitted file is and which ranges have been submitted:
 
 ```bash
