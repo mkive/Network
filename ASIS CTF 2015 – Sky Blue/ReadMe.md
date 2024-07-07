@@ -67,7 +67,7 @@ Remove the header 13 bytes of the .bin file (02 0C 20 FC 03 F8 03 47 00 63 EF E6
 In HxD's [Extra] - [File tools] menu, there is a [Concatenate] function to combine files. 
 With this function, we can combine files 1.bin through 7.bin in order to get the out.png file.
 
-![image](https://github.com/mkive/Network/assets/4083018/ce5b0a64-f37b-4ef8-8c6c-09fe82bb28e6)
+
 
 I extracted the result.png file, but the png file does not open.
 
