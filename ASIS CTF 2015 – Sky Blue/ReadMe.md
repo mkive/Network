@@ -35,7 +35,8 @@ Similarly, if we analyze the data with the header of [02 0c 20] after packet 283
 
 [02 0C 20 FC 03 F8 03 47 00 63 EF E6 07]
 
-![image](https://github.com/mkive/Network/assets/4083018/6aaa7fb5-cede-43c4-b888-812563282cbb)
+![image](https://github.com/mkive/Network/assets/4083018/6c4ce373-9902-4561-8e21-f3aa8429da29)
+
 
 
 Wireshark's [File] - [Export Selected Packet Bytes] function allows you to extract the bytes data of a packet.
