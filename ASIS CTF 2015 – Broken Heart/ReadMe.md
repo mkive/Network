@@ -29,6 +29,25 @@ $ file myheart_7cb6daec0c45b566b9584f98642a7123
 myheart_7cb6daec0c45b566b9584f98642a7123: pcap-ng capture file - version 1.0
 ```
 
+![image](https://github.com/mkive/Network/assets/4083018/9b4aee01-4fe0-4200-a4ec-49af8439552b)
+
+![image](https://github.com/mkive/Network/assets/4083018/5f60f12f-d014-4be7-b589-c202f51266fd)
+
+
+![image](https://github.com/mkive/Network/assets/4083018/997087b2-be39-45d3-8515-73c580c0c41c)
+The 11th packet shows a request for the LoiRLUoq file.
+
+Click on the packet and select [Right-click]-[Follow TCP Stream] to analyze the header information.
+
+![image](https://github.com/mkive/Network/assets/4083018/6e107b0c-8f3b-415a-8bdf-cf5a46e9f0a3)
+
+* If you look at TCP Stream 0, the client requests the LoiRLUoq file from the server via GET and checks the server's response, the HTTP status code is 206 - Partial Content. 
+This code is used when only part of the requested file is sent. 
+* When requesting a file, the data is not sent all at once, but in bits and pieces (fragmented), and when carved, it will be the file you requested.
+* A Content-Range entry is present in the header, which indicates the offset range of the requested file. 
+Since the fragmented files are requested randomly and not sequentially starting from the first part of the file, the files must be sorted sequentially by offset range before being combined.
+
+
 Looking at the type of network protocols used in the transmission, we see a bunch of mostly TCP, DNS and HTTP Requests:
 
 ```bash
@@ -98,34 +117,96 @@ From the `tshark` examination, it seems like the parts were transmitted from the
 We can extract these parts using `tcpflow`:
 
 ```bash
+#by Ubuntu
 sudo apt install tcpflow    
 sudo apt install tcpflow-nox
+```
 
-
-$ tcpflow -r myheart_7cb6daec0c45b566b9584f98642a7123
-$ ls -1
+```bash
+# tcpflow -r myheart_7cb6daec0c45b566b9584f98642a7123.pcap
+reportfilename: ./report.xml
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+tcpflow: TCP PROTOCOL VIOLATION: SYN with data! (length=2)
+# ls -1
 087.107.124.013.00080-192.168.221.128.54391
 087.107.124.013.00080-192.168.221.128.54392
 087.107.124.013.00080-192.168.221.128.54393
-[...]
+087.107.124.013.00080-192.168.221.128.54394
+087.107.124.013.00080-192.168.221.128.54397
+087.107.124.013.00080-192.168.221.128.54398
+087.107.124.013.00080-192.168.221.128.54399
+087.107.124.013.00080-192.168.221.128.54400
+087.107.124.013.00080-192.168.221.128.54401
+087.107.124.013.00080-192.168.221.128.54402
+087.107.124.013.00080-192.168.221.128.54403
+087.107.124.013.00080-192.168.221.128.54404
+087.107.124.013.00080-192.168.221.128.54405
+087.107.124.013.00080-192.168.221.128.54406
+087.107.124.013.00080-192.168.221.128.54407
+087.107.124.013.00080-192.168.221.128.54408
+087.107.124.013.00080-192.168.221.128.54409
+087.107.124.013.00080-192.168.221.128.54410
+087.107.124.013.00080-192.168.221.128.54411
+087.107.124.013.00080-192.168.221.128.54412
+087.107.124.013.00080-192.168.221.128.54413
 087.107.124.013.00080-192.168.221.128.54414
 087.107.124.013.00080-192.168.221.128.54415
 192.168.221.128.54391-087.107.124.013.00080
 192.168.221.128.54392-087.107.124.013.00080
-[...]
+192.168.221.128.54393-087.107.124.013.00080
+192.168.221.128.54394-087.107.124.013.00080
+192.168.221.128.54397-087.107.124.013.00080
+192.168.221.128.54398-087.107.124.013.00080
+192.168.221.128.54399-087.107.124.013.00080
+192.168.221.128.54400-087.107.124.013.00080
+192.168.221.128.54401-087.107.124.013.00080
+192.168.221.128.54402-087.107.124.013.00080
+192.168.221.128.54403-087.107.124.013.00080
+192.168.221.128.54404-087.107.124.013.00080
+192.168.221.128.54405-087.107.124.013.00080
+192.168.221.128.54406-087.107.124.013.00080
+192.168.221.128.54407-087.107.124.013.00080
+192.168.221.128.54408-087.107.124.013.00080
+192.168.221.128.54409-087.107.124.013.00080
+192.168.221.128.54410-087.107.124.013.00080
+192.168.221.128.54411-087.107.124.013.00080
+192.168.221.128.54412-087.107.124.013.00080
+192.168.221.128.54413-087.107.124.013.00080
 192.168.221.128.54414-087.107.124.013.00080
 192.168.221.128.54415-087.107.124.013.00080
-alerts.txt
-myheart_7cb6daec0c45b566b9584f98642a7123
+myheart_7cb6daec0c45b566b9584f98642a7123.pcap
 report.xml
+
 ```
 
 Since we only need data transmitted from `87.107.124.13` to `192.168.221.128`, we only care about the files beginning with `087.107.124.013`.
 
+Content-Range는 각 HTTP Response 의 필드를보고 전송 된 파일의 크기와 전송 된 범위를 확인
 We look at the `Content-Range` field of each HTTP Response to see how big the transmitted file is and which ranges have been submitted:
 
 ```bash
-$ for i in 087.107.124.013.00080-192.168.221.128.54*; do strings -a "$i" | grep "Content-Range"; done | tr '/-' ' ' | sort -nk4
+# for i in 087.107.124.013.00080-192.168.221.128.54*; do strings -a "$i" | grep "Content-Range"; done | tr '/-' ' ' | sort -nk4
 Content Range: bytes 13 179538 2347916
 Content Range: bytes 27943 132132 2347916
 Content Range: bytes 145550 198027 2347916
@@ -156,12 +237,12 @@ Looks like everything - except the first 13 bytes - is available.
 First we create a file of size `2347916` using `dd`:
 
 ```bash
-$ dd if=/dev/zero of=tcpstream bs=2347916 count=1
+# dd if=/dev/zero of=tcpstream bs=2347916 count=1
 1+0 records in
 1+0 records out
-2347916 bytes transferred in 0.001627 secs (1443123310 bytes/sec)
-$ ls -alF tcpstream
--rw-r--r--  1 xxx xxx 2347916 Dec 22 22:13 tcpstream
+2347916 bytes (2.3 MB, 2.2 MiB) copied, 0.00619454 s, 379 MB/s
+# ls -alF tcpstream
+-rw-r--r-- 1 root root 2347916  7월  8 01:20 tcpstream
 ```
 
 Then, we write a small [python script](./reassembler.py) that reassembles the big file from the parts according to their content-ranges:
